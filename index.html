@@ -38,6 +38,12 @@
   .project h3 { margin: 0 0 .35rem; font-size: 1.1rem; }
   .project h3 a { color: var(--fg); }
   .project p { margin: 0 0 .75rem; color: var(--muted); }
+  /* Links inside the description stay quiet; the project's own links below
+     are the ones that should catch the eye. */
+  .project p a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); }
+  .project p a:hover { text-decoration-color: currentColor; }
+  .links { margin: 0 0 .9rem; font-weight: 500; }
+  .links a + a::before { content: "\00b7"; color: var(--muted); margin: 0 .6rem; font-weight: 400; }
   .tag {
     display: inline-block; font-size: .75rem; letter-spacing: .04em;
     text-transform: uppercase; color: var(--muted);
@@ -66,9 +72,15 @@
     <p>
       Distributed leases and leader election derived from a compacted topic, with a
       <a href="https://keda.sh/">KEDA</a> external scaler that keeps a workload running in one
-      cluster at a time and fails it over when that cluster goes away.
+      cluster at a time and fails it over when that cluster goes away. Go library, a
+      container image and a Helm chart.
     </p>
-    <span class="tag">Early development</span>
+    <p class="links">
+      <a href="https://github.com/kfkit/kfklease">Source on GitHub</a>
+      <a href="https://github.com/kfkit/kfklease/releases">Releases</a>
+      <a href="https://github.com/kfkit/kfklease/blob/main/docs/protocol.md">Protocol</a>
+    </p>
+    <span class="tag">Pre-1.0</span>
   </div>
 
   <h2>Elsewhere</h2>
