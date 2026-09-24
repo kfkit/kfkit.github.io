@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kfkit</title>
+<meta name="description" content="Open-source tools for running Apache Kafka in production.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1c1d1f; --muted: #5c6166;
+    --rule: #e3e5e8; --accent: #1f6feb; --card: #fafbfc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115; --fg: #e6e8eb; --muted: #9aa1a9;
+      --rule: #23262d; --accent: #6ea8fe; --card: #14171d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 5rem 1rem 6rem;
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 41rem; margin: 0 auto; }
+  h1 { font-size: 2.25rem; letter-spacing: -0.03em; margin: 0 0 .4rem; }
+  .tagline { color: var(--muted); font-size: 1.1rem; margin: 0 0 2rem; }
+  h2 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .09em;
+       color: var(--muted); font-weight: 600; margin: 3rem 0 1rem; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .project {
+    border: 1px solid var(--rule); border-radius: 10px;
+    background: var(--card); padding: 1.25rem 1.4rem;
+  }
+  .project h3 { margin: 0 0 .35rem; font-size: 1.1rem; }
+  .project h3 a { color: var(--fg); }
+  .project p { margin: 0 0 .75rem; color: var(--muted); }
+  .tag {
+    display: inline-block; font-size: .75rem; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 999px; padding: .15rem .6rem;
+  }
+  footer {
+    margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: .875rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>kfkit</h1>
+  <p class="tagline">Open-source tools for running Apache Kafka&reg; in production.</p>
+
+  <p>
+    Small, focused tools that lean on a Kafka cluster you already operate instead of asking you
+    to run something new alongside it. A broker that is already the durable, ordered log at the
+    centre of your system can answer more questions than it usually gets asked.
+  </p>
+
+  <h2>Projects</h2>
+  <div class="project">
+    <h3><a href="https://github.com/kfkit/kfklease">kfklease</a></h3>
+    <p>
+      Distributed leases and leader election derived from a compacted topic, with a
+      <a href="https://keda.sh/">KEDA</a> external scaler that keeps a workload running in one
+      cluster at a time and fails it over when that cluster goes away.
+    </p>
+    <span class="tag">Early development</span>
+  </div>
+
+  <h2>Elsewhere</h2>
+  <p>
+    Everything lives on <a href="https://github.com/kfkit">GitHub</a>. Issues and pull requests
+    are the place for questions &mdash; there is no mailing list and no chat.
+  </p>
+
+  <footer>
+    Apache Kafka&reg; is a registered trademark of The Apache Software Foundation.
+    kfkit is an independent project, not affiliated with or endorsed by the ASF.
+  </footer>
+</main>
+</body>
+</html>
