@@ -40,6 +40,35 @@
   }
   .project + .project { margin-top: 1rem; }
   .project h3 { margin: 0 0 .35rem; font-size: 1.1rem; }
+  /* Each card opens with a button to the project's own page, "How it
+     works": a small screen with a pixel picture of two frames that take
+     turns, the same in light and dark, still for those who ask for less
+     motion. Inline SVG, nothing loaded. */
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: .6rem 1rem; margin: 0 0 .6rem;
+  }
+  .project .card-head h3 { margin: 0; }
+  .project a.how {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: .3rem .75rem .3rem .4rem;
+    background: #0e1428; color: #fff1e8; border: 3px solid var(--fg);
+    box-shadow: 4px 4px 0 var(--rule); text-decoration: none;
+    font: 600 .72rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .project a.how:hover { text-decoration: none; transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--rule); }
+  .project a.how:active { transform: translate(4px, 4px); box-shadow: none; }
+  .project a.how:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .how svg { display: block; width: 36px; height: 30px; }
+  .how .arrow { color: #ffec27; }
+  .how .f1 { animation: frame-a 1.2s steps(1, end) infinite; }
+  .how .f2 { opacity: 0; animation: frame-b 1.2s steps(1, end) infinite; }
+  @keyframes frame-a { 0% { opacity: 1; } 50% { opacity: 0; } }
+  @keyframes frame-b { 0% { opacity: 0; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .how .f1, .how .f2 { animation: none; }
+  }
   .project h3 a { color: var(--fg); }
   .project p { margin: 0 0 .75rem; color: var(--muted); }
   /* Links inside the description stay quiet; the project's own links below
@@ -69,7 +98,13 @@
 
   <h2>Projects</h2>
   <div class="project">
-    <h3><a href="https://github.com/kfkit/kfklease">kfklease</a></h3>
+    <div class="card-head">
+      <h3><a href="https://github.com/kfkit/kfklease">kfklease</a></h3>
+      <a class="how" href="https://kfkit.dev/kfklease/" aria-label="How kfklease works: slides and a simulation">
+        <svg viewBox="0 0 12 10" width="36" height="30" shape-rendering="crispEdges" aria-hidden="true"><g class="f1"><rect x="1" y="1" width="1" height="1" fill="#ffec27"/><rect x="5" y="1" width="1" height="1" fill="#ffec27"/><rect x="9" y="1" width="1" height="1" fill="#ffec27"/><rect x="1" y="2" width="2" height="1" fill="#ffec27"/><rect x="4" y="2" width="3" height="1" fill="#ffec27"/><rect x="8" y="2" width="2" height="1" fill="#ffec27"/><rect x="1" y="3" width="9" height="1" fill="#ffec27"/><rect x="1" y="4" width="1" height="1" fill="#ffec27"/><rect x="2" y="4" width="1" height="1" fill="#ff004d"/><rect x="3" y="4" width="2" height="1" fill="#ffec27"/><rect x="5" y="4" width="1" height="1" fill="#29adff"/><rect x="6" y="4" width="2" height="1" fill="#ffec27"/><rect x="8" y="4" width="1" height="1" fill="#ff004d"/><rect x="9" y="4" width="1" height="1" fill="#ffec27"/><rect x="1" y="5" width="9" height="1" fill="#ffec27"/><rect x="1" y="6" width="9" height="1" fill="#ffa300"/><rect x="0" y="8" width="2" height="1" fill="#00e436"/><rect x="3" y="8" width="2" height="1" fill="#00e436"/><rect x="6" y="8" width="2" height="1" fill="#00e436"/><rect x="9" y="8" width="2" height="1" fill="#00e436"/><rect x="0" y="9" width="2" height="1" fill="#00e436"/><rect x="3" y="9" width="2" height="1" fill="#00e436"/><rect x="6" y="9" width="2" height="1" fill="#00e436"/><rect x="9" y="9" width="2" height="1" fill="#00e436"/></g><g class="f2"><rect x="1" y="0" width="1" height="1" fill="#ffec27"/><rect x="5" y="0" width="1" height="1" fill="#ffec27"/><rect x="9" y="0" width="1" height="1" fill="#ffec27"/><rect x="1" y="1" width="2" height="1" fill="#ffec27"/><rect x="4" y="1" width="3" height="1" fill="#ffec27"/><rect x="8" y="1" width="2" height="1" fill="#ffec27"/><rect x="1" y="2" width="9" height="1" fill="#ffec27"/><rect x="1" y="3" width="1" height="1" fill="#ffec27"/><rect x="2" y="3" width="1" height="1" fill="#ff004d"/><rect x="3" y="3" width="2" height="1" fill="#ffec27"/><rect x="5" y="3" width="1" height="1" fill="#29adff"/><rect x="6" y="3" width="2" height="1" fill="#ffec27"/><rect x="8" y="3" width="1" height="1" fill="#ff004d"/><rect x="9" y="3" width="1" height="1" fill="#ffec27"/><rect x="1" y="4" width="9" height="1" fill="#ffec27"/><rect x="1" y="5" width="9" height="1" fill="#ffa300"/><rect x="0" y="8" width="2" height="1" fill="#00e436"/><rect x="3" y="8" width="2" height="1" fill="#00e436"/><rect x="6" y="8" width="2" height="1" fill="#00e436"/><rect x="9" y="8" width="2" height="1" fill="#ffec27"/><rect x="0" y="9" width="2" height="1" fill="#00e436"/><rect x="3" y="9" width="2" height="1" fill="#00e436"/><rect x="6" y="9" width="2" height="1" fill="#00e436"/><rect x="9" y="9" width="2" height="1" fill="#ffec27"/></g></svg>
+        <span>How it works <span class="arrow" aria-hidden="true">&#9654;</span></span>
+      </a>
+    </div>
     <p>
       Distributed leases and leader election derived from a compacted topic, with a
       <a href="https://keda.sh/">KEDA</a> external scaler that keeps a workload running in one
@@ -83,7 +118,6 @@
       standby mode that hands a cluster's lease over on purpose.
     </p>
     <p class="links">
-      <a href="https://kfkit.dev/kfklease/">How it works</a>
       <a href="https://github.com/kfkit/kfklease">Source on GitHub</a>
       <a href="https://github.com/kfkit/kfklease/releases">Releases</a>
       <a href="https://github.com/kfkit/kfklease/blob/main/docs/install.md">Install</a>
@@ -93,7 +127,13 @@
   </div>
 
   <div class="project">
-    <h3><a href="https://github.com/kfkit/kfkwho">kfkwho</a></h3>
+    <div class="card-head">
+      <h3><a href="https://github.com/kfkit/kfkwho">kfkwho</a></h3>
+      <a class="how" href="https://kfkit.dev/kfkwho/" aria-label="How kfkwho works: slides and a demo">
+        <svg viewBox="0 0 12 10" width="36" height="30" shape-rendering="crispEdges" aria-hidden="true"><g class="f1"><rect x="9" y="3" width="2" height="1" fill="#ff77a8"/><rect x="3" y="4" width="2" height="1" fill="#00e436"/><rect x="9" y="4" width="2" height="1" fill="#ff77a8"/><rect x="3" y="5" width="2" height="1" fill="#00e436"/><rect x="6" y="5" width="2" height="1" fill="#ffec27"/><rect x="9" y="5" width="2" height="1" fill="#ff77a8"/><rect x="0" y="6" width="2" height="1" fill="#29adff"/><rect x="3" y="6" width="2" height="1" fill="#00e436"/><rect x="6" y="6" width="2" height="1" fill="#ffec27"/><rect x="9" y="6" width="2" height="1" fill="#ff77a8"/><rect x="0" y="7" width="2" height="1" fill="#29adff"/><rect x="3" y="7" width="2" height="1" fill="#00e436"/><rect x="6" y="7" width="2" height="1" fill="#ffec27"/><rect x="9" y="7" width="2" height="1" fill="#ff77a8"/><rect x="0" y="8" width="2" height="1" fill="#29adff"/><rect x="3" y="8" width="2" height="1" fill="#00e436"/><rect x="6" y="8" width="2" height="1" fill="#ffec27"/><rect x="9" y="8" width="2" height="1" fill="#ff77a8"/><rect x="0" y="9" width="12" height="1" fill="#c2c3c7"/></g><g class="f2"><rect x="3" y="1" width="2" height="1" fill="#00e436"/><rect x="3" y="2" width="2" height="1" fill="#00e436"/><rect x="9" y="2" width="2" height="1" fill="#ff77a8"/><rect x="3" y="3" width="2" height="1" fill="#00e436"/><rect x="9" y="3" width="2" height="1" fill="#ff77a8"/><rect x="0" y="4" width="2" height="1" fill="#29adff"/><rect x="3" y="4" width="2" height="1" fill="#00e436"/><rect x="6" y="4" width="2" height="1" fill="#ffec27"/><rect x="9" y="4" width="2" height="1" fill="#ff77a8"/><rect x="0" y="5" width="2" height="1" fill="#29adff"/><rect x="3" y="5" width="2" height="1" fill="#00e436"/><rect x="6" y="5" width="2" height="1" fill="#ffec27"/><rect x="9" y="5" width="2" height="1" fill="#ff77a8"/><rect x="0" y="6" width="2" height="1" fill="#29adff"/><rect x="3" y="6" width="2" height="1" fill="#00e436"/><rect x="6" y="6" width="2" height="1" fill="#ffec27"/><rect x="9" y="6" width="2" height="1" fill="#ff77a8"/><rect x="0" y="7" width="2" height="1" fill="#29adff"/><rect x="3" y="7" width="2" height="1" fill="#00e436"/><rect x="6" y="7" width="2" height="1" fill="#ffec27"/><rect x="9" y="7" width="2" height="1" fill="#ff77a8"/><rect x="0" y="8" width="2" height="1" fill="#29adff"/><rect x="3" y="8" width="2" height="1" fill="#00e436"/><rect x="6" y="8" width="2" height="1" fill="#ffec27"/><rect x="9" y="8" width="2" height="1" fill="#ff77a8"/><rect x="0" y="9" width="12" height="1" fill="#c2c3c7"/></g></svg>
+        <span>How it works <span class="arrow" aria-hidden="true">&#9654;</span></span>
+      </a>
+    </div>
     <p>
       Who talks to what on a cluster: a drop-in replacement for the broker's
       <code>StandardAuthorizer</code> that publishes JMX metrics per principal, client id,
@@ -103,7 +143,6 @@
       Kafka 4.1 and later, with rules for the Prometheus JMX Exporter.
     </p>
     <p class="links">
-      <a href="https://kfkit.dev/kfkwho/">How it works</a>
       <a href="https://github.com/kfkit/kfkwho">Source on GitHub</a>
       <a href="https://github.com/kfkit/kfkwho/releases">Releases</a>
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/install.md">Install</a>
@@ -112,7 +151,13 @@
   </div>
 
   <div class="project">
-    <h3><a href="https://github.com/kfkit/kfkrbac">kfkrbac</a></h3>
+    <div class="card-head">
+      <h3><a href="https://github.com/kfkit/kfkrbac">kfkrbac</a></h3>
+      <a class="how" href="https://kfkit.dev/kfkrbac/" aria-label="How kfkrbac works: slides and a demo">
+        <svg viewBox="0 0 12 10" width="36" height="30" shape-rendering="crispEdges" aria-hidden="true"><g class="f1"><rect x="4" y="1" width="4" height="1" fill="#fff1e8"/><rect x="3" y="2" width="1" height="1" fill="#fff1e8"/><rect x="8" y="2" width="1" height="1" fill="#fff1e8"/><rect x="3" y="3" width="1" height="1" fill="#fff1e8"/><rect x="8" y="3" width="1" height="1" fill="#fff1e8"/><rect x="2" y="4" width="8" height="1" fill="#ffec27"/><rect x="2" y="5" width="8" height="1" fill="#ffec27"/><rect x="2" y="6" width="3" height="1" fill="#ffec27"/><rect x="5" y="6" width="2" height="1" fill="#1d2b53"/><rect x="7" y="6" width="3" height="1" fill="#ffec27"/><rect x="2" y="7" width="3" height="1" fill="#ffec27"/><rect x="5" y="7" width="2" height="1" fill="#1d2b53"/><rect x="7" y="7" width="3" height="1" fill="#ffec27"/><rect x="2" y="8" width="8" height="1" fill="#ffec27"/><rect x="2" y="9" width="8" height="1" fill="#ffa300"/></g><g class="f2"><rect x="4" y="0" width="4" height="1" fill="#fff1e8"/><rect x="3" y="1" width="1" height="1" fill="#fff1e8"/><rect x="8" y="1" width="1" height="1" fill="#fff1e8"/><rect x="3" y="2" width="1" height="1" fill="#fff1e8"/><rect x="8" y="2" width="1" height="1" fill="#fff1e8"/><rect x="3" y="3" width="1" height="1" fill="#fff1e8"/><rect x="2" y="4" width="8" height="1" fill="#ffec27"/><rect x="11" y="4" width="1" height="1" fill="#00e436"/><rect x="2" y="5" width="8" height="1" fill="#ffec27"/><rect x="11" y="5" width="1" height="1" fill="#00e436"/><rect x="2" y="6" width="3" height="1" fill="#ffec27"/><rect x="5" y="6" width="2" height="1" fill="#1d2b53"/><rect x="7" y="6" width="3" height="1" fill="#ffec27"/><rect x="11" y="6" width="1" height="1" fill="#00e436"/><rect x="2" y="7" width="3" height="1" fill="#ffec27"/><rect x="5" y="7" width="2" height="1" fill="#1d2b53"/><rect x="7" y="7" width="3" height="1" fill="#ffec27"/><rect x="2" y="8" width="8" height="1" fill="#ffec27"/><rect x="11" y="8" width="1" height="1" fill="#00e436"/><rect x="2" y="9" width="8" height="1" fill="#ffa300"/></g></svg>
+        <span>How it works <span class="arrow" aria-hidden="true">&#9654;</span></span>
+      </a>
+    </div>
     <p>
       Role-based access control: an authorizer that adds roles and role bindings on top of
       the ACLs the broker already has. Roles only add access. A binding is an ACL record in
@@ -125,7 +170,6 @@
       signed on the releases page and on Maven Central as <code>dev.kfkit:kfkrbac</code>.
     </p>
     <p class="links">
-      <a href="https://kfkit.dev/kfkrbac/">How it works</a>
       <a href="https://github.com/kfkit/kfkrbac">Source on GitHub</a>
       <a href="https://github.com/kfkit/kfkrbac/releases">Releases</a>
       <a href="https://github.com/kfkit/kfkrbac/blob/main/docs/install.md">Install</a>
