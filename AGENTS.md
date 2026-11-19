@@ -47,8 +47,10 @@ served by GitHub Pages from `main` (root). The map:
   there and does not copy project docs.
 - **Every link resolves.** Before a PR, check every `href` in `index.html`
   (see **Working an issue**).
-- **Light and dark.** Colours are custom properties on `:root`, redefined
-  under `prefers-color-scheme: dark`; a change looks right in both.
+- **Dark only.** The site has one theme, dark, whatever the visitor's system
+  asks for: colours are custom properties on `:root` with `color-scheme:
+  dark`, and no `prefers-color-scheme` query. The project pages at
+  `kfkit.dev/<project>` follow the same rule.
 - **Conventional commits, signed.** `feat:`, `fix:`, `docs:`, `chore:`;
   the PR title is the squash commit.
 - Say in the PR what was verified and how, with numbers; say what was not.
