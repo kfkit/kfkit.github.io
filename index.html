@@ -84,9 +84,9 @@
       Go library, a container image and a Helm chart, signed and published on GHCR.
     </p>
     <p>
-      On <code>main</code>, ahead of the next release: N replicas of any scalable target, a
-      health gate that hands the lease on when the workload cannot run where it is held,
-      and several leases served by one scaler.
+      Since v0.4.0: N replicas of any scalable target, a health gate that hands the lease on
+      when the workload cannot run where it is held, several leases served by one scaler, and
+      a standby mode that hands a cluster's lease over on purpose.
     </p>
     <p class="links">
       <a href="https://github.com/kfkit/kfklease">Source on GitHub</a>
@@ -94,7 +94,7 @@
       <a href="https://github.com/kfkit/kfklease/blob/main/docs/install.md">Install</a>
       <a href="https://github.com/kfkit/kfklease/blob/main/docs/protocol.md">Protocol</a>
     </p>
-    <span class="tag">v0.3.0</span><span class="tag">Pre-1.0</span>
+    <span class="tag">v0.4.0</span><span class="tag">Pre-1.0</span>
   </div>
 
   <div class="project">
@@ -109,10 +109,11 @@
     </p>
     <p class="links">
       <a href="https://github.com/kfkit/kfkwho">Source on GitHub</a>
+      <a href="https://github.com/kfkit/kfkwho/releases">Releases</a>
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/install.md">Install</a>
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/metrics.md">Metrics</a>
     </p>
-    <span class="tag">Not released yet</span>
+    <span class="tag">v0.1.0</span><span class="tag">Pre-1.0</span>
   </div>
 
   <div class="project">
@@ -124,13 +125,18 @@
       have keep working. The owner of a prefix hands out roles inside it, and nowhere else.
     </p>
     <p>
-      The design is being settled in the open; nothing can be installed yet.
+      Seven roles, groups, a command that binds, lists and imports roles, and an extension
+      that applies the same bindings to Kafka Connect. One jar for Kafka 4.1 and later,
+      signed on the releases page and on Maven Central as <code>dev.kfkit:kfkrbac</code>.
     </p>
     <p class="links">
       <a href="https://github.com/kfkit/kfkrbac">Source on GitHub</a>
-      <a href="https://github.com/kfkit/kfkrbac/issues">Design questions</a>
+      <a href="https://github.com/kfkit/kfkrbac/releases">Releases</a>
+      <a href="https://github.com/kfkit/kfkrbac/blob/main/docs/install.md">Install</a>
+      <a href="https://github.com/kfkit/kfkrbac/blob/main/docs/roles.md">Roles</a>
+      <a href="https://central.sonatype.com/artifact/dev.kfkit/kfkrbac">Maven Central</a>
     </p>
-    <span class="tag">In design</span>
+    <span class="tag">v0.1.1</span><span class="tag">Pre-1.0</span>
   </div>
 
   <h2>Elsewhere</h2>
