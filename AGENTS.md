@@ -59,6 +59,10 @@ served by GitHub Pages from `main` (root). The map:
   root. No Actions workflow builds the site.
 - Inline CSS in `index.html`, system font stack, no web fonts, no images
   that need a request.
+- No version numbers on the page. A card says what a project is and
+  links to its repository, its releases page and its documents; the
+  releases page is where the current version is. A number here is stale
+  the day after a release.
 - Issues are the unit of work. Acceptance criteria are numbered `AC1…ACn`;
   the PR maps each to a check or an explicit "not covered, because".
 

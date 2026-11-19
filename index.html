@@ -84,16 +84,9 @@
       Go library, a container image and a Helm chart, signed and published on GHCR.
     </p>
     <p>
-      Since v0.4.0: N replicas of any scalable target, a health gate that hands the lease on
-      when the workload cannot run where it is held, several leases served by one scaler, and
-      a standby mode that hands a cluster's lease over on purpose.
-    </p>
-    <p>
-      v0.5.0 is a correctness release. An audit on a real cluster found a pair of records
-      that let a participant joining the log at the wrong place take a lease that was held,
-      and a release that another site could take while a replica of the old one still
-      answered for it. Both are closed, the simulation now checks every reader of every
-      log, and a scaler whose lease topic is recreated restarts where it used to hang.
+      N replicas of any scalable target, a health gate that hands the lease on when the
+      workload cannot run where it is held, several leases served by one scaler, and a
+      standby mode that hands a cluster's lease over on purpose.
     </p>
     <p class="links">
       <a href="https://github.com/kfkit/kfklease">Source on GitHub</a>
@@ -102,7 +95,7 @@
       <a href="https://github.com/kfkit/kfklease/blob/main/docs/protocol.md">Protocol</a>
       <a href="https://github.com/kfkit/kfklease/blob/main/CHANGELOG.md">Changelog</a>
     </p>
-    <span class="tag">v0.5.0</span><span class="tag">Pre-1.0</span>
+    <span class="tag">Pre-1.0</span>
   </div>
 
   <div class="project">
@@ -121,7 +114,7 @@
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/install.md">Install</a>
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/metrics.md">Metrics</a>
     </p>
-    <span class="tag">v0.1.0</span><span class="tag">Pre-1.0</span>
+    <span class="tag">Pre-1.0</span>
   </div>
 
   <div class="project">
@@ -144,7 +137,7 @@
       <a href="https://github.com/kfkit/kfkrbac/blob/main/docs/roles.md">Roles</a>
       <a href="https://central.sonatype.com/artifact/dev.kfkit/kfkrbac">Maven Central</a>
     </p>
-    <span class="tag">v0.1.1</span><span class="tag">Pre-1.0</span>
+    <span class="tag">Pre-1.0</span>
   </div>
 
   <h2>Elsewhere</h2>
