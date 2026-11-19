@@ -64,10 +64,10 @@ served by GitHub Pages from `main` (root). The map:
   it works"), its repository, its releases page and its documents; the
   releases page is where the current version is. A number here is stale
   the day after a release.
-- The link to a project's page is a button at the head of its card: a small
-  dark screen with a pixel picture in two frames, inline SVG and CSS, still
-  under `prefers-reduced-motion`. A new project gets one with a picture of
-  its own.
+- A card opens with a pixel picture of its project in its top left corner,
+  before the name: two frames that take turns, inline SVG and CSS on the
+  card's own background, still under `prefers-reduced-motion`. It is the
+  link to the project's page. A new project gets a picture of its own.
 - Issues are the unit of work. Acceptance criteria are numbered `AC1…ACn`;
   the PR maps each to a check or an explicit "not covered, because".
 
