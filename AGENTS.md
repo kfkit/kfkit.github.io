@@ -66,8 +66,9 @@ served by GitHub Pages from `main` (root). The map:
   the day after a release.
 - A card opens with a pixel picture of its project in its top left corner,
   before the name: two frames that take turns, inline SVG and CSS on the
-  card's own background, still under `prefers-reduced-motion`. It is the
-  link to the project's page. A new project gets a picture of its own.
+  card's own background, still under `prefers-reduced-motion`. It and the
+  project's name link to the project's page; the repository is the first
+  of the links below. A new project gets a picture of its own.
 - Issues are the unit of work. Acceptance criteria are numbered `AC1…ACn`;
   the PR maps each to a check or an explicit "not covered, because".
 
