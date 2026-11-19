@@ -46,16 +46,10 @@
      are the ones that should catch the eye. */
   .project p a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); }
   .project p a:hover { text-decoration-color: currentColor; }
-  .links { margin: 0 0 .9rem; font-weight: 500; }
+  .links { margin: 0; font-weight: 500; }
   .project .links a { color: var(--accent); text-decoration: none; }
   .project .links a:hover { text-decoration: underline; }
   .links a + a::before { content: "\00b7"; color: var(--muted); margin: 0 .6rem; font-weight: 400; }
-  .tag {
-    display: inline-block; font-size: .75rem; letter-spacing: .04em;
-    text-transform: uppercase; color: var(--muted);
-    border: 1px solid var(--rule); border-radius: 999px; padding: .15rem .6rem;
-  }
-  .tag + .tag { margin-left: .35rem; }
   footer {
     margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
     color: var(--muted); font-size: .875rem;
@@ -95,7 +89,6 @@
       <a href="https://github.com/kfkit/kfklease/blob/main/docs/protocol.md">Protocol</a>
       <a href="https://github.com/kfkit/kfklease/blob/main/CHANGELOG.md">Changelog</a>
     </p>
-    <span class="tag">Pre-1.0</span>
   </div>
 
   <div class="project">
@@ -109,12 +102,12 @@
       Kafka 4.1 and later, with rules for the Prometheus JMX Exporter.
     </p>
     <p class="links">
+      <a href="https://kfkit.dev/kfkwho/">How it works</a>
       <a href="https://github.com/kfkit/kfkwho">Source on GitHub</a>
       <a href="https://github.com/kfkit/kfkwho/releases">Releases</a>
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/install.md">Install</a>
       <a href="https://github.com/kfkit/kfkwho/blob/main/docs/metrics.md">Metrics</a>
     </p>
-    <span class="tag">Pre-1.0</span>
   </div>
 
   <div class="project">
@@ -137,7 +130,6 @@
       <a href="https://github.com/kfkit/kfkrbac/blob/main/docs/roles.md">Roles</a>
       <a href="https://central.sonatype.com/artifact/dev.kfkit/kfkrbac">Maven Central</a>
     </p>
-    <span class="tag">Pre-1.0</span>
   </div>
 
   <h2>Elsewhere</h2>
