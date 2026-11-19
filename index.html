@@ -79,7 +79,7 @@
 <main>
   <h1>kfkit</h1>
   <p class="tagline">Open-source tools for running Apache Kafka&reg; in production.</p>
-  <canvas class="strip" id="desk" role="img" aria-label="Pixel art: Franz Kafka sits at an office desk with a filing cabinet behind him and writes on a sheet lying on the desk, a record each, then pushes it along; it shoves the three before it, and the one at the far end falls off the desk into the wastepaper basket marked S3: retention."></canvas>
+  <canvas class="strip" id="desk" role="img" aria-label="Pixel art: Franz Kafka sits on a chair at an office desk with a filing cabinet behind him and writes with a pen on a sheet lying on the desk, a record each, then pushes it along; it shoves the three before it, and the one at the far end falls off the desk into the wastepaper basket marked S3: retention. Now and then he scratches one leg with the other foot; a grey cat sits under the desk and watches every sheet fall."></canvas>
 
   <p>
     Small, focused tools that lean on a Kafka cluster you already operate instead of asking you
@@ -182,7 +182,7 @@
   const PX = 3;
   const C = {
     O: "#1d2b53", K: "#1d2b53", L: "#5f574f", P: "#ffccaa", Q: "#e8a77f", W: "#fff1e8", D: "#5f574f",
-    T: "#ff004d", Y: "#ffec27", B: "#ab5236", b: "#7e2553", A: "#ffa300", G: "#c2c3c7", g: "#83769c",
+    T: "#ff004d", Y: "#ffec27", B: "#ab5236", b: "#7e2553", A: "#ffa300", G: "#c2c3c7", g: "#83769c", S: "#8a837c",
   };
   // A 3 x 5 font: what is written on the basket.
   const FONT = { S: "011100010001110", 3: "110001010001110" };
@@ -228,7 +228,7 @@
       ".OKKKKKKKKO.",
       ".OKPPKKPPKO.",
       "OPOWWPPWWOPO",                 // the eyes: whites here, the pupils drawn
-      "OPOWWPPWWOPO",                 // where the quill is
+      "OPOWWPPWWOPO",                 // where the pen is
       ".OOPPPQPPOO.",
       "..OPPQQPPO..",
       "...OPPPPO...",
@@ -237,23 +237,38 @@
       "ODDDDTTDDDDO",
       "ODDDDDTDDDDO",
     ];
+    // His cat, sitting under the desk, 9 x 11, its ears clear of the drawer: grey as his trousers, a lighter chest and paws, light grey eyes, the pupils
+    // drawn where it looks.
+    const cat = [
+      ".D.....D.",
+      ".DD...DD.",
+      ".DgDgDgD.",
+      ".DGGDGGD.",
+      ".DGGDGGD.",
+      ".DDDQDDD.",
+      "..DDSDD..",
+      ".DDDSSDD.",
+      ".DDSSSDD.",
+      ".DDDSDDD.",
+      "..SS.SS..",
+    ];
     function desk(x, y, w) {
       s.R(x, y, w, 3, C.O); s.R(x + 1, y + 1, w - 2, 1, C.B);
       s.R(x + 2, y + 3, 2, FLOOR - y - 3, C.O); s.R(x + w - 4, y + 3, 2, FLOOR - y - 3, C.O);
       s.R(x + 2, y + 3, w - 4, 8, C.O); s.R(x + 3, y + 4, w - 6, 6, C.b);   // the drawer
       s.R(x + w / 2 - 2, y + 6, 4, 2, C.A);
     }
-    function bin(x, y) {                                // the wastepaper basket: a bucket, 14 x 12
-      for (let j = 0; j < 12; j++) {
-        const i = Math.floor(j * 2 / 11), l = x + i, r = x + 13 - i;
-        s.R(l, y + j, r - l + 1, 1, C.O);
-        if (j > 1 && j < 11) {
-          s.R(l + 1, y + j, r - l - 1, 1, C.G);
-          for (let k = l + 3; k < r - 1; k += 3) s.R(k, y + j, 1, 1, C.g);   // the ribs
+    function bin(x, y) {                                // the wastepaper basket: a grey bucket, 12 x 10
+      for (let j = 0; j < 10; j++) {
+        const i = Math.floor(j * 2 / 9), l = x + i, r = x + 11 - i;
+        s.R(l, y + j, r - l + 1, 1, C.D);
+        if (j > 1 && j < 9) {
+          s.R(l + 1, y + j, r - l - 1, 1, C.S);
+          for (let k = l + 3; k < r - 1; k += 3) s.R(k, y + j, 1, 1, C.D);   // the ribs
         }
       }
-      s.R(x - 1, y, 16, 2, C.O);                        // the rim
-      s.R(x + 3, y + 3, 9, 7, C.G); s.text("S3", x + 4, y + 4, C.b);     // where old records go
+      s.R(x - 1, y, 14, 2, C.D);                        // the rim
+      s.R(x + 2, y + 2, 8, 7, C.S); s.text("S3", x + 3, y + 3, C.G);     // where old records go
     }
     // A sheet a record. He writes on the sheet in front of him, then pushes it
     // to the right; it shoves the three he wrote before along the desk, and the
@@ -265,17 +280,35 @@
       s.g.clearRect(0, 0, s.W, s.H);
       for (let x = 0; x < s.W; x += 2) s.R(x, FLOOR, 1, 1, C.L);
       cabinet(2, FLOOR - 40);
-      const deskX = 25, deskW = 46, binX = deskX + deskW + 4, top = FLOOR - 24;
+      const deskX = 25, deskW = 46, binX = deskX + deskW + 2, top = FLOOR - 24;
       const n = Math.floor(t / CYCLE), u = t - n * CYCLE;
       const writing = u < WRITE, done = writing ? u / WRITE : 1;
       const push = writing ? 0 : Math.round(PITCH * (u - WRITE) / PUSH);
       const x0 = deskX + 14;                                   // the sheet he writes on, at his right hand
-      const pen = x0 + 1 + Math.floor(done * (SW - 2));        // where the quill is on it
+      const pen = x0 + 1 + Math.floor(done * (SW - 2));        // where the pen is on it
       const kx = deskX + 6, ky = FLOOR - 26 - sitter.length + 3;
+      // his chair: the posts of its back beside his shoulders, the seat just under
+      // the drawer, his knees over its edge, its legs down to the floor
+      for (const cx of [kx - 1, kx + 12]) {
+        s.R(cx, ky + 6, 1, top - ky - 6, C.B); s.R(cx - (cx < kx ? 1 : 0), ky + 5, 2, 1, C.B);
+        s.R(cx, top + 13, 1, FLOOR - top - 13, C.B);
+      }
+      s.R(kx - 2, top + 11, 16, 2, C.B);
       s.sprite(sitter, kx, ky);
-      // his eyes: on the quill while he writes, then after the sheets
+      // his eyes: on the pen while he writes, then after the sheets
       const right = writing ? pen > x0 + 3 : true, down = writing;
       for (const ex of [3, 7]) s.R(kx + ex + (right ? 1 : 0), ky + 4 + (down ? 1 : 0), 1, 1, C.O);
+      // his legs under the desk: shins in dark trousers, brown shoes on the floor;
+      // now and then he lifts the right foot and scratches the left shin with it
+      s.R(kx + 3, top + 11, 3, FLOOR - top - 13, C.D); s.R(kx + 2, FLOOR - 2, 4, 2, C.B);
+      const itch = t % 7 > 4.5 && t % 7 < 6.3;
+      if (!itch) { s.R(kx + 7, top + 11, 3, FLOOR - top - 13, C.D); s.R(kx + 7, FLOOR - 2, 4, 2, C.B); }
+      else {
+        const fy = FLOOR - 9 + (Math.floor(t * 8) % 2) * 2, knee = top + 14;
+        s.R(kx + 7, top + 11, 3, 3, C.D);
+        for (let y = knee; y < fy; y++) s.R(kx + 7 - Math.round((y - knee + 1) / (fy - knee) * 2), y, 3, 1, C.D);
+        s.R(kx + 4, fy, 4, 2, C.B);                        // the shoe, rubbing
+      }
       desk(deskX, top, deskW);
       // a flat sheet: two rows of paper on the desk, the ink as specks on it
       const sheet = (x, ink) => {
@@ -292,20 +325,36 @@
       let tc = n * CYCLE + WRITE + PUSH * over / PITCH;
       if (t < tc) tc -= CYCLE;
       const f = (t - tc) / FALL;
+      let falling = null;
       if (tc > 0 && f < 1) {
-        const x = x0 + (ON_DESK - 1) * PITCH + over + 8 * f, y = top - 2 + (FLOOR - 9 - top) * f * f;
+        const x = x0 + (ON_DESK - 1) * PITCH + over + 8 * f, y = top - 2 + (FLOOR - 7 - top) * f * f;
         if (Math.floor(f * 8) % 2) { s.R(x, y, SW, 1, C.W); s.R(x, y + 1, SW, 1, C.G); }
         else for (let i = 0; i < 5; i++) s.R(x + 1 + i, y - 2 + i, 2, 1, C.W);   // on its edge
+        falling = { x, y };
       }
-      // the hand and the quill
+      // the cat, to the right of his legs: it sees every sheet down, and in
+      // between watches his hand, blinks, swishes its tail
+      const cx = kx + 23, cy = FLOOR - cat.length;
+      const tail = Math.floor(t * 2) % 2;
+      const ty = cy + cat.length - 2;
+      s.R(cx + 7, ty, 2, 1, C.D);
+      s.R(cx + 9, ty - 1 - tail, 1, 2, C.D); s.R(cx + 10, ty - 3 - tail, 1, 2, C.D);
+      s.sprite(cat, cx, cy);
+      if (t % 4 < 0.15) for (const ex of [2, 5]) s.R(cx + ex, cy + 3, 2, 2, C.D);   // a blink
+      else {
+        // up at his hand while he writes; right and down after a falling sheet
+        const right = falling ? 1 : 0, down = falling && falling.y > top + 4 ? 1 : 0;
+        for (const ex of [2, 5]) s.R(cx + ex + right, cy + 3 + down, 1, 1, C.O);
+      }
+      // the hand and the pen
       const up = writing ? Math.floor(t * 6) % 2 : 0, hx = writing ? pen : x0 - 1 + push, hy = top - 3;
       s.R(hx - 3, hy, 3, 3, C.D);                          // the sleeve
       s.R(hx, hy - 1 + up, 3, 3, C.O); s.R(hx + 1, hy + up, 1, 1, C.P);
       if (writing) {
-        s.R(hx + 2, hy - 2 + up, 1, 1, C.O); s.R(hx + 3, hy - 3 + up, 1, 1, C.O);   // the quill, aslant
-        s.R(hx + 3, hy - 6 + up, 2, 3, C.W); s.R(hx + 5, hy - 7 + up, 1, 2, C.W);
+        for (let i = 0; i < 3; i++) s.R(hx + 2 + i, hy - 2 - i + up, 1, 1, C.G);   // the pen, aslant
+        s.R(hx + 5, hy - 5 + up, 1, 1, C.A);                // its cap
       }
-      bin(binX, FLOOR - 12);
+      bin(binX, FLOOR - 10);
     });
   }
 })();
