@@ -69,6 +69,10 @@
   .project .links a { color: var(--accent); text-decoration: none; }
   .project .links a:hover { text-decoration: underline; }
   .links a + a::before { content: "\00b7"; color: var(--muted); margin: 0 .6rem; font-weight: 400; }
+  /* Kafka at his desk: a canvas of 96 dots, three screen pixels to a dot;
+     one still frame for those who ask for less motion. */
+  .strip { display: block; width: 288px; max-width: 100%; height: auto; margin: -1rem 0 2rem;
+           image-rendering: pixelated; image-rendering: crisp-edges; }
   footer {
     margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
     color: var(--muted); font-size: .875rem;
@@ -79,6 +83,7 @@
 <main>
   <h1>kfkit</h1>
   <p class="tagline">Open-source tools for running Apache Kafka&reg; in production.</p>
+  <canvas class="strip" id="desk" role="img" aria-label="Pixel art: Franz Kafka sits at an office desk with a filing cabinet behind him and writes on a sheet lying on the desk, a record each, then pushes it along; it shoves the three before it, and the one at the far end falls off the desk into the wastepaper basket marked S3: retention."></canvas>
 
   <p>
     Small, focused tools that lean on a Kafka cluster you already operate instead of asking you
@@ -174,5 +179,140 @@
     kfkit is an independent project, not affiliated with or endorsed by the ASF.
   </footer>
 </main>
+<script>
+"use strict";
+// The strip under the title: pixel art on a canvas, nothing loaded.
+(() => {
+  const PX = 3;
+  const C = {
+    O: "#1d2b53", K: "#1d2b53", L: "#5f574f", P: "#ffccaa", Q: "#e8a77f", W: "#fff1e8", D: "#5f574f",
+    T: "#ff004d", Y: "#ffec27", B: "#ab5236", b: "#7e2553", A: "#ffa300", G: "#c2c3c7", g: "#83769c",
+  };
+  // A 3 x 5 font: what is written on the basket.
+  const FONT = { S: "011100010001110", 3: "110001010001110" };
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setup(id, H) {
+    const cv = document.getElementById(id), g = cv.getContext("2d");
+    const s = { cv, g, H, W: 0 };
+    s.fit = () => { s.W = 96; cv.width = s.W; cv.height = H; };
+    s.fit();
+    s.R = (x, y, w, h, c) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
+    s.sprite = (rows, x, y) => rows.forEach((row, j) => { for (let i = 0; i < row.length; i++) if (C[row[i]]) s.R(x + i, y + j, 1, 1, C[row[i]]); });
+    s.text = (str, x, y, c) => { for (const ch of str) { const b = FONT[ch]; if (b) for (let i = 0; i < 15; i++) if (b[i] === "1") s.R(x + i % 3, y + (i / 3 | 0), 1, 1, c); x += 4; } };
+    return s;
+  }
+  function run(s, step, draw) {
+    if (still) { for (let i = 0; i < 150; i++) step(0.1); draw(); return; }
+    let last = performance.now();
+    const frame = now => { const dt = Math.min(0.1, (now - last) / 1000); last = now; step(dt); draw(); requestAnimationFrame(frame); };
+    addEventListener("resize", s.fit);
+    requestAnimationFrame(frame);
+  }
+
+  // Franz Kafka at his desk, the filing cabinet behind him. What he writes
+  // goes out as a topic: a sheet a record, pushed along the desk, and the
+  // oldest falls into the wastepaper basket: retention.
+  {
+    const s = setup("desk", 52), FLOOR = 50;
+    // The filing cabinet behind him, 22 x 40.
+    function cabinet(x, y) {
+      s.R(x, y, 22, 40, C.O); s.R(x + 1, y + 1, 20, 38, C.B);
+      for (let i = 0; i < 4; i++) {
+        const dy = y + 2 + i * 9;
+        s.R(x + 2, dy, 18, 8, C.O); s.R(x + 3, dy + 1, 16, 6, C.b);
+        s.R(x + 9, dy + 3, 4, 2, C.A);               // the handle
+        s.R(x + 5, dy + 2, 3, 1, C.W);                // the label
+      }
+    }
+    // Kafka at the desk, seen from the front: head, shoulders, the writing arm.
+    const sitter = [
+      "...OOOOOO...",
+      "..OKKLKKKO..",
+      ".OKKKKKKKKO.",
+      ".OKPPKKPPKO.",
+      "OPOWWPPWWOPO",                 // the eyes: whites here, the pupils drawn
+      "OPOWWPPWWOPO",                 // where the quill is
+      ".OOPPPQPPOO.",
+      "..OPPQQPPO..",
+      "...OPPPPO...",
+      "..OOOWWOOO..",
+      ".ODDWTTWDDO.",
+      "ODDDDTTDDDDO",
+      "ODDDDDTDDDDO",
+    ];
+    function desk(x, y, w) {
+      s.R(x, y, w, 3, C.O); s.R(x + 1, y + 1, w - 2, 1, C.B);
+      s.R(x + 2, y + 3, 2, FLOOR - y - 3, C.O); s.R(x + w - 4, y + 3, 2, FLOOR - y - 3, C.O);
+      s.R(x + 2, y + 3, w - 4, 8, C.O); s.R(x + 3, y + 4, w - 6, 6, C.b);   // the drawer
+      s.R(x + w / 2 - 2, y + 6, 4, 2, C.A);
+    }
+    function bin(x, y) {                                // the wastepaper basket: a bucket, 14 x 12
+      for (let j = 0; j < 12; j++) {
+        const i = Math.floor(j * 2 / 11), l = x + i, r = x + 13 - i;
+        s.R(l, y + j, r - l + 1, 1, C.O);
+        if (j > 1 && j < 11) {
+          s.R(l + 1, y + j, r - l - 1, 1, C.G);
+          for (let k = l + 3; k < r - 1; k += 3) s.R(k, y + j, 1, 1, C.g);   // the ribs
+        }
+      }
+      s.R(x - 1, y, 16, 2, C.O);                        // the rim
+      s.R(x + 3, y + 3, 9, 7, C.G); s.text("S3", x + 4, y + 4, C.b);     // where old records go
+    }
+    // A sheet a record. He writes on the sheet in front of him, then pushes it
+    // to the right; it shoves the three he wrote before along the desk, and the
+    // one at the far end goes over the edge into the basket: retention.
+    // WRITE, PUSH and FALL are the seconds each part takes.
+    const WRITE = 2.4, PUSH = 0.6, FALL = 0.6, CYCLE = WRITE + PUSH, PITCH = 8, ON_DESK = 4, SW = 7;
+    let t = 0;
+    run(s, dt => { t += dt; }, () => {
+      s.g.clearRect(0, 0, s.W, s.H);
+      for (let x = 0; x < s.W; x += 2) s.R(x, FLOOR, 1, 1, C.L);
+      cabinet(2, FLOOR - 40);
+      const deskX = 25, deskW = 46, binX = deskX + deskW + 4, top = FLOOR - 24;
+      const n = Math.floor(t / CYCLE), u = t - n * CYCLE;
+      const writing = u < WRITE, done = writing ? u / WRITE : 1;
+      const push = writing ? 0 : Math.round(PITCH * (u - WRITE) / PUSH);
+      const x0 = deskX + 14;                                   // the sheet he writes on, at his right hand
+      const pen = x0 + 1 + Math.floor(done * (SW - 2));        // where the quill is on it
+      const kx = deskX + 6, ky = FLOOR - 26 - sitter.length + 3;
+      s.sprite(sitter, kx, ky);
+      // his eyes: on the quill while he writes, then after the sheets
+      const right = writing ? pen > x0 + 3 : true, down = writing;
+      for (const ex of [3, 7]) s.R(kx + ex + (right ? 1 : 0), ky + 4 + (down ? 1 : 0), 1, 1, C.O);
+      desk(deskX, top, deskW);
+      // a flat sheet: two rows of paper on the desk, the ink as specks on it
+      const sheet = (x, ink) => {
+        s.R(x, top - 2, SW, 2, C.W); s.R(x, top - 1, SW, 1, C.G);
+        for (let i = 1; i < ink; i += 2) s.R(x + i, top - 2, 1, 1, C.O);
+      };
+      for (let k = 0; k < ON_DESK; k++) {
+        const x = x0 + k * PITCH + push;
+        if (x + 4 > deskX + deskW) continue;                   // over the edge: falling now
+        sheet(x, k === 0 ? Math.floor(done * (SW - 1)) + 1 : SW - 1);
+      }
+      // the one that went over the edge in the last push, tumbling in
+      const over = (deskX + deskW) - (x0 + (ON_DESK - 1) * PITCH + 4) + 1;
+      let tc = n * CYCLE + WRITE + PUSH * over / PITCH;
+      if (t < tc) tc -= CYCLE;
+      const f = (t - tc) / FALL;
+      if (tc > 0 && f < 1) {
+        const x = x0 + (ON_DESK - 1) * PITCH + over + 8 * f, y = top - 2 + (FLOOR - 9 - top) * f * f;
+        if (Math.floor(f * 8) % 2) { s.R(x, y, SW, 1, C.W); s.R(x, y + 1, SW, 1, C.G); }
+        else for (let i = 0; i < 5; i++) s.R(x + 1 + i, y - 2 + i, 2, 1, C.W);   // on its edge
+      }
+      // the hand and the quill
+      const up = writing ? Math.floor(t * 6) % 2 : 0, hx = writing ? pen : x0 - 1 + push, hy = top - 3;
+      s.R(hx - 3, hy, 3, 3, C.D);                          // the sleeve
+      s.R(hx, hy - 1 + up, 3, 3, C.O); s.R(hx + 1, hy + up, 1, 1, C.P);
+      if (writing) {
+        s.R(hx + 2, hy - 2 + up, 1, 1, C.O); s.R(hx + 3, hy - 3 + up, 1, 1, C.O);   // the quill, aslant
+        s.R(hx + 3, hy - 6 + up, 2, 3, C.W); s.R(hx + 5, hy - 7 + up, 1, 2, C.W);
+      }
+      bin(binX, FLOOR - 12);
+    });
+  }
+})();
+</script>
 </body>
 </html>
